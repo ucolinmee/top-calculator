@@ -40,18 +40,12 @@ function clearDisplay() {
     display.textContent = "";
 }
 
-function validateEquation(equation) {
-    var eqnArray = equation.split("");
-    if (eqnArray[1] === "/" && eqnArray[2] === "0") {
-        return 0;
-    }
-    return 1;
+function resetCalculator() {
+    operatorsUsed = 0;
+    clearDisplay();
 }
 
 function computeResult(equation) {
-    if (validateEquation(equation) !== 1) {
-        return null;
-    }
     var eqnArray = equation.split(/[+-/*]/); // e.g. 40+3 returns ["40", "3"]
     for (var i=0; i<eqnArray.length; i++) {
         equation = equation.replace(eqnArray[i], ""); // find the operator selected by user
@@ -96,7 +90,4 @@ equal.addEventListener("click", () => {
 })
 
 var clear = document.querySelector(".clear-button");
-clear.addEventListener("click", () => {
-    clearDisplay();
-    operatorsUsed = 0;
-})
+clear.addEventListener("click", resetCalculator);
